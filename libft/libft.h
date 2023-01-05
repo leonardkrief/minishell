@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 01:50:07 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/05 07:23:52 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/05 18:34:09 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int		ft_toupper(int c);
 typedef struct s_list
 {
 	void			*content;
+	int				precedence;
 	struct s_list	*next;
 }t_list;
 
