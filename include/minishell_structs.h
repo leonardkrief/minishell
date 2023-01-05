@@ -9,6 +9,11 @@
 # include <sys/time.h>
 # include <unistd.h>
 # include <math.h>
+# include "../libft/libft.h"
+
+# define OPEN_CHRS	"({"
+# define CLOSE_CHRS	")}"
+
 
 typedef struct s_btree{
 	void			*node;
@@ -21,6 +26,5 @@ typedef struct s_queue{
 	int				id;
 	struct s_queue	*next;
 }	t_queue;
-
 
 #endif
