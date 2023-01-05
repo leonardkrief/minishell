@@ -35,7 +35,6 @@ SRCS		=	ft_put_fd/ft_putchar_fd.c \
 				utils/ft_split.c \
 				lst/ft_lstadd_back.c \
 				lst/ft_lstadd_front.c \
-				lst/ft_lstbelongs.c \
 				lst/ft_lstclear.c \
 				lst/ft_lstdelone.c \
 				lst/ft_lstiter.c \

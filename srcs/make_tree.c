@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 03:53:52 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/05 19:21:47 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/06 00:23:58 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*rpn_pop_ops(t_rpn *rpn)
 		tmp = rpn->ops;
 		rpn->ops = rpn->ops->next;
 		tmp->next = NULL;
-		ft_lstadd_back(rpn->out, tmp);
+		ft_lstadd_back(&rpn->out, tmp);
 	}
 	return (NULL);
 }
@@ -107,20 +107,35 @@ char	*rpn_popending(t_rpn *rpn)
 		tmp = rpn->ops;
 		rpn->ops = rpn->ops->next;
 		tmp->next = NULL;
-		ft_lstadd_back(rpn->out, tmp);
+		ft_lstadd_back(&rpn->out, tmp);
 	}
 	return (NULL);
 }
 
-char	*rpn_handle_parenthesis(t_rpn *rpn, int i)
+void	rpn_pop_opsdel(t_rpn *rpn)
+{
+	t_list	*tmp;
+
+	if (!rpn->ops)
+		return ;
+	else
+	{
+		tmp = rpn->ops->next;
+		free (rpn->ops->content);
+		free (rpn->ops);
+		rpn->ops = tmp;
+	}
+}
+
+char	*rpn_handle_parenthesis(t_rpn *rpn)
 {
 	char	*parenthesis;
 
 	parenthesis = rpn->current->content;
 	if (!ft_strncmp(parenthesis, "(", 2))
-		ft_lstaddfront(rpn->ops, ft_lstnew_rpn(")", 0));
+		ft_lstadd_front(&rpn->ops, ft_lstnew_rpn(ft_strdup(")", -1), 0));
 	else if (!ft_strncmp(parenthesis, "{", 2))
-		ft_lstaddfront(rpn->ops, ft_lstnew_rpn("}", 0));
+		ft_lstadd_front(&rpn->ops, ft_lstnew_rpn(ft_strdup("}", -1), 0));
 	else if (!ft_strncmp(parenthesis, ")", 2))
 	{
 		while (rpn->ops && ft_strncmp(rpn->ops->content, ")", 2))
@@ -128,7 +143,7 @@ char	*rpn_handle_parenthesis(t_rpn *rpn, int i)
 		if (!rpn->ops)
 			return (parenthesis);
 		else
-			rpn_pop_ops(rpn);
+			rpn_pop_opsdel(rpn);
 	}
 	else if (!ft_strncmp(parenthesis, "}", 2))
 	{
@@ -137,38 +152,37 @@ char	*rpn_handle_parenthesis(t_rpn *rpn, int i)
 		if (!rpn->ops)
 			return (parenthesis);
 		else
-			rpn_pop_ops(rpn);
+			rpn_pop_opsdel(rpn);
 	}
 	return (NULL);
 }
 
-char	*rpn_handle_operators(t_rpn *rpn, int i)
+char	*rpn_handle_operators(t_rpn *rpn)
 {
 	t_list	*op;
 
 	op = rpn->current;
 	while (rpn->ops && (op->precedence <= rpn->ops->precedence))
 		rpn_pop_ops(rpn);
-	ft_lstadd_front(&rpn->ops, ft_lstnew_rpn(op->content, op->precedence));
+	ft_lstadd_front(&rpn->ops, ft_lstnew_rpn(ft_strdup(op->content, -1), op->precedence));
 	return (NULL);
 }
 
-char	*rpn_isspecialtreatment(t_rpn *rpn, int i)
+char	*rpn_isspecialtreatment(t_rpn *rpn)
 {
 	char	*special;
 
 	special = ft_match_list(rpn->current->content, rpn->parenthesis);
 	if (special)
-		return (rpn_handle_parenthesis(rpn, i));
+		return (rpn_handle_parenthesis(rpn));
 	else
-		return (rpn_handle_operators(rpn, i));
+		return (rpn_handle_operators(rpn));
 }
 
-t_rpn	*get_list(char *str)
+t_rpn	*get_rpn(t_rpn *rpn, char *str)
 {
 	int	i;
 	int	j;
-	t_rpn	*rpn;
 
 	i = 0;
 	init_rpn(rpn, str);
@@ -179,17 +193,18 @@ t_rpn	*get_list(char *str)
 			i++;
 		j = i;
 		// tant que rpn->s[i] n'est pas special, on continue
-		while (rpn->s[i] && !rpn_isspecial(&rpn, i))
+		while (rpn->s[i] && !rpn_isspecial(rpn, i))
 			i++;
 		// on est soit a la fin de rpn->s, soit sur le debut d'un special
 		// Si on a atteint la fin de la rpn->s, on depile toute la liste ops dans out
+		if (i != j)
+			ft_lstadd_back(&rpn->out, ft_lstnew_rpn(ft_strtrim(ft_strdup(str + j, i - j), rpn->blanks), 0));
 		if (!rpn->s[i])
-			rpn_popending(&rpn);
+			rpn_popending(rpn);
 		// Sinon on ajoute le bout de string dans out puis on traite le caractere special
 		else
 		{
-			ft_lstadd_back(&rpn->out, ft_lstnew_rpn(ft_strtrim(ft_strdup(str + j, i), rpn->blanks), 0));
-			rpn_isspecialtreatment(&rpn, i);
+			rpn_isspecialtreatment(rpn);
 			i += ft_strlen(rpn->current->content);
 		}
 	}
@@ -198,12 +213,14 @@ t_rpn	*get_list(char *str)
 
 int	main(void)
 {
-	char str[] = "   {(a|b) && c} || (d || e) || {f | (g || h)}";
+	//char str[] = "   {(a|b) && c} || (d || e) || {f | (g || h)}";
+	char str[] = "  {(a|b) && c} || (d || e)  ";
+	t_rpn	rpn;
 
 	// t_list	*specials = ft_delimiters();
 	// printf("%d\n", ft_lstbelongs(delimiters, "|| &&    zczec", &cmp, &len));
 	// ft_strdup(str);
-	ft_lstprint(get_list(str));
+	ft_lstprint(get_rpn(&rpn, str)->out);
 	return (0);
 }
 
@@ -214,10 +231,6 @@ int	main(void)
 1 - 3 + 2 - 4
 
 13-2+4-
-
-7363/*84-*+
-
-7363/*84-*+
 
 
 712cc -o theaters theaters.c -lcJSON+
