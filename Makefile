@@ -5,8 +5,8 @@ OBJS		= $(SRCS:.c=.o)
 DEPS		= $(SRCS:.c=.d)
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -MMD -MP
-INCLUDE		=	-Iinclude
+CFLAGS		=	-Wall -Wextra -Werror -MMD -MP -g3
+INCLUDE		=	-Iinclude -Ilibft
 EXECUTION	=	execution
 LIBS		=	libft/libft.a
 RM			=	rm -rf

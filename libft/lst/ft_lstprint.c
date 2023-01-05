@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 20:31:52 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/05 04:07:08 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/05 07:11:19 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	ft_lstprint(t_list *lst)
 {
 	while (lst)
 	{
-		printf("%s", (char *)lst->content);
+		if (lst->content == NULL)
+			printf("(null)");
+		else
+			printf("%s", (char *)lst->content);
 		if (lst->next)
 			printf(" -> ");
 		lst = lst->next;
