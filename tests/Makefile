@@ -1,5 +1,6 @@
 SRCS		=	print_trees.c \
 				trees.c \
+				queues.c \
 				main.c
 
 OBJS		= $(SRCS:.c=.o)

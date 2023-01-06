@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 01:50:07 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/05 18:34:09 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/06 03:00:59 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list	*ft_lstnew(void *content);
-t_list	*ft_lstpop(t_list **lst, t_list *to);
+t_list	*ft_lstpop(t_list **lst);
 int		ft_lstsize(t_list *lst);
 void	ft_lstprint(t_list *lst);
 

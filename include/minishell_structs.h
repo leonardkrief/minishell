@@ -38,6 +38,7 @@ typedef struct s_rpn{
 	t_list	*specials;
 	char	*blanks;
 	char	*s;
+	t_list	*check;
 	t_list	*current;
 }	t_rpn;
 

@@ -1,10 +1,10 @@
-#include "../include/minishell.h"
+// #include "../include/minishell.h"
 
-int main(int ac, char **av)
-{
-	char s[] = "&&";
-	char g[] = "&& ";
+// int main(int ac, char **av)
+// {
+// 	char s[] = "&&";
+// 	char g[] = "&& ";
 
-	if (ac >= 2)
-		printf("%d\n", strncmp(s, g, atoi(av[1])));
-}
+// 	if (ac >= 2)
+// 		printf("%d\n", strncmp(s, g, atoi(av[1])));
+// }

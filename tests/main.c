@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 19:17:36 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/04 23:32:50 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/06 04:24:00 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ int	main(void)
 	char	*dpipe = "||";
 	char	*and = "&&";
 
-	t = new_node((char *)pipe);
-	t->l = new_node((char *)dpipe);
-	t->l->l = new_node((char *)and);
-	t->l->l->l = new_node((char *)pipe);
-	t->l->l->l->l = new_node((char *)a);
-	t->l->l->l->r = new_node((char *)b);
-	t->l->l->r = new_node((char *)c);
-	t->l->r = new_node((char *)d);
-	t->r = new_node((char *)and);
-	t->r->l = new_node((char *)e);
-	t->r->r = new_node((char *)f);
+	t = new_tree((char *)pipe);
+	t->l = new_tree((char *)dpipe);
+	t->l->l = new_tree((char *)and);
+	t->l->l->l = new_tree((char *)pipe);
+	t->l->l->l->l = new_tree((char *)a);
+	t->l->l->l->r = new_tree((char *)b);
+	t->l->l->r = new_tree((char *)c);
+	t->l->r = new_tree((char *)d);
+	t->r = new_tree((char *)and);
+	t->r->l = new_tree((char *)e);
+	t->r->r = new_tree((char *)f);
 
 	print_tree(t, 2);
 	return (0);

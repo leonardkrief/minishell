@@ -6,13 +6,13 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:54:00 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/06 04:26:31 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/06 05:54:43 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_print_tree(t_queue **trees, t_queue **to_print)
+void	bfs(t_queue **trees, t_queue **to_print)
 {
 	int		id;
 	t_btree	*t;
@@ -26,7 +26,7 @@ void	get_print_tree(t_queue **trees, t_queue **to_print)
 			add_queue(trees, new_queue(t->l, 2*id));
 		if (t->r)
 			add_queue(trees, new_queue(t->r, 2*id + 1));
-		get_print_tree(trees, to_print);
+		bfs(trees, to_print);
 	}
 }
 
@@ -70,11 +70,11 @@ void	print_print(t_queue *to_print, int node_size)
 		{
 			n = printf("%.*s", node_size, (char *)to_print->data);
 			if (n < node_size)
-				printf("%.*s", node_size - n, "__________");
+				printf("%.*s", node_size - n, "            ");
 			to_print = to_print->next;
 		}
 		else
-			printf("%.*s", node_size, "__________");
+			printf("%.*s", node_size, "            ");
 		printf("%*s", node_size * (int)pow(2, depth - local_depth), "");
 		id_to_print++;
 		if (id_to_print >= pow(2, local_depth + 1))
@@ -88,13 +88,25 @@ void	print_tree(t_btree *t, int node_size)
 	t_queue *trees;
 	t_queue *to_print;
 
+	(void) node_size;
 	trees = new_queue((t_btree *)t, 1);
+	(void) to_print;
 	to_print = NULL;
-	print_queue(to_print);
-	get_print_tree(&trees, &to_print);
+	bfs(&trees, &to_print);
 	print_print(to_print, node_size);
 }
 
+/*
+{(a|b) && c} || (d || e)
+
+a b | c && d e || ||
+
+		||
+	 &&    ||
+    |  c  d  e
+   a b
+
+*/
 
 
 //                              01                              
