@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 03:53:52 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/06 06:02:10 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/06 06:12:32 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,13 @@ t_rpn	*generate_rpn(t_rpn *rpn, char *str)
 	init_rpn(rpn, str);
 	while (rpn->s[i])
 	{
-		printf("_________(%d)_________\nout = ___", i);
+		printf("_________(%d)_________\nout =\t", i);
 		ft_lstprint(rpn->out);
-		printf("ops = ___");
+		printf("ops =\t");
 		ft_lstprint(rpn->ops);
-		printf("rpn.s + i = [%s]\n", rpn->s + i);
+		printf("rpn.s + i = '%s'\n", rpn->s + i);
 		if (rpn->current)
-			printf("rpn.current = %s\n", (char *) rpn->current->content);
+			printf("rpn.current = '%s'\n", (char *) rpn->current->content);
 		else
 			printf("rpn.current = (null)\n");
 		
@@ -138,11 +138,11 @@ t_rpn	*generate_rpn(t_rpn *rpn, char *str)
 	if (rpn_popending(rpn))
 		return (rpn);
 
-	printf("_________(%d)_________\nout = ___", i);
+	printf("_________(%d)_________\nout =\t", i);
 	ft_lstprint(rpn->out);
-	printf("ops = ___");
+	printf("ops =\t");
 	ft_lstprint(rpn->ops);
-	printf("rpn.s + i = [%s]\n", rpn->s + i);
+	printf("rpn.s + i = '%s'\n", rpn->s + i);
 
 	rpn->current = NULL;
 	return (rpn);
