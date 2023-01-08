@@ -22,7 +22,7 @@ RM			=	rm -rf
 
 ${EXECUTION}:	${OBJS}
 				make -C libft
-				${CC} ${CFLAGS} ${OBJS} ${LIBS} -o ${EXECUTION}
+				${CC} ${CFLAGS} ${OBJS} ${LIBS} -o ${EXECUTION} -lm
 
 all:	${EXECUTION}
 

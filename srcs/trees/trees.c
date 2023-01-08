@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:54:00 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/06 02:57:42 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/08 02:52:59 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_btree	*new_tree(void *node)
 	t = malloc(sizeof(*t));
 	if (!t)
 		return (NULL);
-	t->node = ft_strdup((char *)node, -1);
+	t->node = ft_strndup((char *)node, -1);
 	t->r = NULL;
 	t->l = NULL;
 	return (t);

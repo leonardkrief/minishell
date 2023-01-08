@@ -6,13 +6,13 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 02:09:47 by lkrief            #+#    #+#             */
-/*   Updated: 2022/11/20 15:51:05 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/08 02:50:53 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_strndup(const char *s1)
 {
 	char	*cp;
 	int		len;

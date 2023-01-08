@@ -36,6 +36,7 @@ t_rpn	*generate_rpn(t_rpn *rpn, char *str);
 void	init_rpn(t_rpn *rpn, char *to_parse);
 void	free_rpn(t_rpn *rpn);
 t_rpn	*rpn(t_rpn *rpn, char *str);
+char	*invert_quotes(char *s);
 
 // rpn_pop_utils.c
 char	*rpn_pop_ops(t_rpn *rpn);

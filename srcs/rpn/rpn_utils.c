@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 03:53:52 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/06 05:34:22 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/08 02:52:59 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_lstappendcopy(t_list **lst, t_list *copy)
 
 	while (copy)
 	{
-		new = ft_lstnew_rpn(ft_strdup(copy->content, -1), copy->precedence);
+		new = ft_lstnew_rpn(ft_strndup(copy->content, -1), copy->precedence);
 		ft_lstadd_back(lst, new);
 		copy = copy->next;
 	}

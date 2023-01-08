@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 03:53:52 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/06 06:12:32 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/08 01:23:46 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ char	*rpn_handle_parenthesis(t_rpn *rpn)
 
 	parenthesis = rpn->current->content;
 	if (!ft_strncmp(parenthesis, "(", 2))
-		ft_lstadd_front(&rpn->ops, ft_lstnew_rpn(ft_strdup(")", -1), 0));
+		ft_lstadd_front(&rpn->ops, ft_lstnew_rpn(ft_strndup(")", -1), 0));
 	else if (!ft_strncmp(parenthesis, "{", 2))
-		ft_lstadd_front(&rpn->ops, ft_lstnew_rpn(ft_strdup("}", -1), 0));
+		ft_lstadd_front(&rpn->ops, ft_lstnew_rpn(ft_strndup("}", -1), 0));
 	else if (!ft_strncmp(parenthesis, ")", 2))
 	{
 		while (rpn->ops && ft_strncmp(rpn->ops->content, ")", 2))
@@ -69,7 +69,7 @@ char	*rpn_handle_operators(t_rpn *rpn)
 	op = rpn->current;
 	while (rpn->ops && (op->precedence <= rpn->ops->precedence))
 		rpn_pop_ops(rpn);
-	ft_lstadd_front(&rpn->ops, ft_lstnew_rpn(ft_strdup(op->content, -1), op->precedence));
+	ft_lstadd_front(&rpn->ops, ft_lstnew_rpn(ft_strndup(op->content, -1), op->precedence));
 	return (NULL);
 }
 
@@ -120,7 +120,7 @@ t_rpn	*generate_rpn(t_rpn *rpn, char *str)
 		// on est soit a la fin de rpn->s, soit sur le debut d'un special
 		// si on etait deja sur un special, rien à add dans out, sinon on add
 		if (i != j)
-			ft_lstadd_back(&rpn->out, ft_lstnew_rpn(ft_strtrim(ft_strdup(str + j, i - j), rpn->blanks), 0));
+			ft_lstadd_back(&rpn->out, ft_lstnew_rpn(invert_quotes(ft_strtrim(ft_strndup(str + j, i - j), rpn->blanks)), 0));
 		if (i != j && rpn->check && is_a_closed_parenthesis(rpn->check->content))
 		{
 			rpn->current = ft_lstlast(rpn->out);
