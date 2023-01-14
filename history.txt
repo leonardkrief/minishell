@@ -1,0 +1,36 @@
+ls
+exit
+ls
+ls
+exit
+ls
+clear
+ls
+exit
+ls
+exit
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+ls
+exit
+ls
+i
+grep
+grep
+valgrind
+ls
+ls
+ls
+exit
+ls
+
+ls
+ls | ls
+ls && ls
+ls && ls
+ls
