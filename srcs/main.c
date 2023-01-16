@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 03:53:43 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/14 23:05:22 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/16 19:07:52 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	exec(char **env, t_data *data)
 	t_btree	*tree;
 
 	// prompt = "\001\e[0;37m\002:\001\e[0m\002";
+	env = ft_copy_tab(env);
 	while (1)
 	{
 		str = readline("MINISHELLL:");
@@ -33,7 +34,7 @@ int	exec(char **env, t_data *data)
 		if (checkquotes(str) || checksyntax(str))
 			continue ;
 		str = ft_expand(str, env);
-		if (ft_builtin(str, env))
+		if (ft_builtin(str, env, &env))
 			continue ;
 		if (!str || !*str || !ft_strcmp(str, "exit"))
 			break ;
@@ -63,6 +64,7 @@ int	main(int ac, char **av, char **env)
 	data.prev_pipes = -1;
 	exec(env, &data);
 }
+
 
 /*
 

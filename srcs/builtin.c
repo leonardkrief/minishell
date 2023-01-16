@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 13:37:24 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/04 00:26:48 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/01/17 00:33:13 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,58 @@ static int	builtin_pwd(char *s)
 	return (1);
 }
 
-int	ft_builtin(char *s, char **env)
+static int	builtin_cd(char *str, char ***addr_ev)
+{
+	int		success;
+	char	**tab;
+
+	success = -1;
+	if (str)
+	{
+		tab = ft_split(str + 3, ' ');
+		if (!tab)
+			return (ft_puterror(FAILED_MALLOC), -1);
+		success = ft_cd(tab, addr_ev);
+		ft_free_tab(tab, -1);
+	}
+	return (success);
+}
+
+static int	builtin_export(char *str, char ***addr_ev)
+{
+	int		success;
+	char	**tab;
+
+	success = -1;
+	if (str)
+	{
+		tab = ft_split(str + 7, ' ');
+		if (!tab)
+			return (ft_puterror(FAILED_MALLOC), -1);
+		success = ft_export(tab, addr_ev);
+		ft_free_tab(tab, -1);
+	}
+	return (success);
+}
+
+static int	builtin_unset(char *str, char ***addr_ev)
+{
+	int		success;
+	char	**tab;
+
+	success = -1;
+	if (str)
+	{
+		tab = ft_split(str + 6, ' ');
+		if (!tab)
+			return (ft_puterror(FAILED_MALLOC), -1);
+		success = ft_unset(tab, addr_ev);
+		ft_free_tab(tab, -1);
+	}
+	return (success);
+}
+
+int	ft_builtin(char *s, char **env, char ***addr_env)
 {
 	char *temp;
 
@@ -130,6 +181,12 @@ int	ft_builtin(char *s, char **env)
 		// return (ft_printf("\n"));
 	if (!ft_strcmp(temp, "env"))
 		return (builtin_env(temp, env), free(temp), 1);
+	if (!ft_strncmp(temp, "cd ", 3) || !ft_strcmp(temp, "cd"))
+		return (builtin_cd(temp, addr_env), free(temp), 1);
+	if (!ft_strncmp(temp, "export ", 7) || !ft_strcmp(temp, "export"))
+		return (builtin_export(temp, addr_env), free(temp), 1);
+	if (!ft_strncmp(temp, "unset ", 6))
+		return (builtin_unset(temp, addr_env), free(temp), 1);
 	if (!ft_strcmp(temp, "exit"))
 		return (free(temp), free(s), exit(1), 1);
 	free(temp);
