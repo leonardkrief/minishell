@@ -6,13 +6,13 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:47:54 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/16 07:24:02 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/17 00:04:56 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_swap(char **tab, int i, int j)
+void	ft_swap_ev(char **tab, int i, int j)
 {
 	char	*tmp;
 
@@ -37,7 +37,7 @@ char	**ft_sorted_ev(char **ev)
 		while (j < len - i)
 		{
 			if (ft_strcmp(ev[j], ev[j + 1]) > 0)
-				ft_swap(ev, j, j + 1);
+				ft_swap_ev(ev, j, j + 1);
 			j++;
 		}
 		i++;
@@ -48,35 +48,84 @@ char	**ft_sorted_ev(char **ev)
 int	ft_display_ordered_ev(char **ev)
 {
 	int		i;
-	char	**ev;
+	int		j;
+	int		quotes_trigger;
 
 	ev = ft_sorted_ev(ev);
-	i = -1;
+	i = 0;
 	while (ev && ev[i])
-		printf("%s\n", ev[i]);
+	{
+		j = 0;
+		while (ev[i][j] && ev[i][j] != '=')
+			ft_putchar_fd(ev[i][j++], STDOUT_FILENO);
+		quotes_trigger = (ev[i][j] == '=');
+		if (ev[i][j] == '=')
+			ft_putchar_fd(ev[i][j++], STDOUT_FILENO);
+		if (quotes_trigger)
+			ft_putchar_fd('"', STDOUT_FILENO);
+		while (ev[i][j])
+			ft_putchar_fd(ev[i][j++], STDOUT_FILENO);
+		if (quotes_trigger)
+			ft_putchar_fd('"', STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		i++;
+	}
+	return (1);
+}
+
+int	export_check_valid_name(char *str)
+{
+	char	*begin;
+
+	begin = str;
+	while (ft_isalpha(*str) || *str == '_')
+		str++;
+	if (str != begin)
+	{
+		while (ft_isalnum(*str) || *str == '_')
+			str++;
+		if (*str == '\0' || *str == '=')
+			return (0);
+	}
+	ft_putstr_fd("bash: export: `", STDERR_FILENO);
+	ft_putstr_fd(begin, STDERR_FILENO);
+	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+	return (1);
+}
+
+int	ft_export_var(char *str, char ***addr_ev)
+{
+	char	*var_name;
+
+	var_name = str;
+	if (export_check_valid_name(var_name))
+		return (-1);
+	str = ft_strchr(str, '=');
+	if (str)
+		*(str++) = '\0';
+	if (!ft_ev_getvar(var_name, *addr_ev))
+		ft_ev_setvar(var_name, str, addr_ev);
+	else if (ft_ev_getvar(var_name, *addr_ev) && str)
+		ft_ev_setvar(var_name, str, addr_ev);
 	return (1);
 }
 
 int	ft_export(char **av, char ***addr_ev)
 {
 	int	i;
+	int	ret;
 	char *str;
 
-	if (*addr_ev)
+	ret = 0;
+	if (!*addr_ev)
 		return (-1);
-	if (av && av[0] == NULL)
+	if (av == NULL || av[0] == NULL)
 		return (ft_display_ordered_ev(*addr_ev));
 	else
 	{
 		i = -1;
 		while (av[++i])
-		{
-			str = ft_strchr(av[i], '=');
-			if (str)
-				*str = '\0';
-			if (!ft_ev_setvar(av[i], str + 1, addr_ev))
-				return (-1);
-		}
+			ret += ft_export_var(av[i], addr_ev);
 	}
-	return (0);
+	return (ret);
 }
