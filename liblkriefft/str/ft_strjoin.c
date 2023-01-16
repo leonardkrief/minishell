@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 01:48:55 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/16 07:04:03 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/16 18:26:17 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ char	*ft_strjoin_lkrief(char const *s1, char const *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	else if (!s1)
-		return (ft_strdup(s2));
+		return (ft_strndup(s2, -1));
 	else if (!s2)
-		return (ft_strdup(s1));
+		return (ft_strndup(s1, -1));
 	join = malloc(sizeof(*join) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!join)
 		return (NULL);
