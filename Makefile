@@ -7,6 +7,11 @@ DIR_SRCS		=	srcs
 DIR_OBJS		=	objs
 
 SRCS_NAMES		=	main.c split.c builtin.c expand.c syntax.c wildcard.c \
+				builtins/env_utils.c \
+				builtins/cd.c \
+				builtins/export.c \
+				builtins/unset.c \
+				error_handler/error.c \
 				rpn/rpn_algo.c \
 				rpn/rpn_basics.c \
 				rpn/rpn_pop_utils.c \
@@ -51,6 +56,8 @@ $(DIR_OBJS)/%.o: $(DIR_SRCS)/%.c | $(DIR_OBJS)
 
 $(DIR_OBJS):
 	mkdir -p $(DIR_OBJS)
+	mkdir -p objs/builtins
+	mkdir -p objs/error_handler
 	mkdir -p objs/trees/print_tree
 	mkdir -p objs/rpn
 	mkdir -p objs/exec

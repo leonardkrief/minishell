@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 03:53:22 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/14 11:34:59 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/01/16 19:08:53 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ struct	dirent
 // split.c
 char	**ft_splitex(char const *s);
 // builtin.c
-int		ft_builtin(char *s, char **env);
+int		ft_builtin(char *s, char **env, char ***addr_env);
 // expand.c
 char	*ft_expand(char *s, char **env);
 int		checksyntax(char *s);
