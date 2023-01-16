@@ -4,6 +4,20 @@
 # include "../liblkriefft/liblkriefft.h"
 # include "minitrees_structs.h"
 
+//env_utils.c
+char	**ft_copy_tab(char **tab);
+char	**regenerate_ev(int len, int index, char **ev);
+int		ft_ev_getvar(char *var, char **ev);
+char	*ft_ev_setvar(char *var, char *str, char **ev);
+
+// error.c
+void	*ft_puterror(int flag);
+
+// cd.c
+char	*ft_getpath(char **av, char **ev);
+int		change_directory(char *new_pwd, char **ev);
+int		ft_cd(char **av, char **ev);
+
 // lst_utils.c
 t_list *ft_lstnew_rpn(void *content, int precedence);
 void	ft_lstappendcopy(t_list **lst, t_list *copy);
