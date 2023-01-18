@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:54:00 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/14 22:40:53 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/14 17:29:33 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,10 @@ t_btree	*get_tree(char *str, char **env, t_data *data)
 		{
 			ft_lstadd_front(&list, ft_lstnew(new_tree(out->content, data)));
 			tree = (t_btree*)list->content;
+
 		}
 		out = out->next;
 	}
 	free_rpn(&rpn_var);
-	tree = (t_btree*)list->content;
-	free(list);
-	return (tree);
+	return ((t_btree *) list->content);
 }

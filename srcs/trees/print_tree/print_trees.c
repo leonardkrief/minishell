@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:54:00 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/14 22:45:25 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/13 02:16:09 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,14 @@ void	print_print(t_queue *to_print, int node_size)
 void	print_tree(t_btree *t, int node_size)
 {
 	t_queue *trees;
-	t_queue *adress;
 	t_queue *to_print;
 
 	(void) node_size;
 	trees = new_queue((t_btree *)t, 1);
-	adress = trees;
 	(void) to_print;
 	to_print = NULL;
 	bfs(&trees, &to_print);
 	print_print(to_print, node_size);
-	free_queue(adress);
-	free_queue(to_print);
 }
 
 /*

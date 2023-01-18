@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 03:53:22 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/16 19:08:53 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/17 02:00:18 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@
 # define SQUOTE '\''
 # define DQUOTE '\"'
 # define SPACE ' '
-# define RESET "\033[0m"
-# define BLACK "\033[0;30m"
-# define RED "\033[0;31m"
-# define GREEN "\033[0;32m"
-# define YELLOW "\033[0;33m"
-# define BLUE "\033[0;34m"
-# define MAGENTA "\033[0;35m"
-# define CYAN "\033[0;36m"
-# define WHITE "\033[0;37m"
+# define RESET "\001\033[0m\002"
+# define BLACK "\001\033[0;30m\002"
+# define RED "\001\033[0;31m\002"
+# define GREEN "\001\033[0;32m\002"
+# define YELLOW "\001\033[0;33m\002"
+# define BLUE "\001\033[0;34m\002"
+# define MAGENTA "\001\033[0;35m\002"
+# define CYAN "\001\033[0;36m\002"
+# define WHITE "\001\033[0;37m\002"
 
 /*
 struct	dirent
@@ -67,6 +67,8 @@ void	ft_lstadd_back_rr(t_rr **lst, t_rr *new);
 t_rr	*ft_lstnewrr(char *content, int type);
 void	ft_printlist(t_rr *temp);
 char	*ft_wildcard(char *wildcards);
+char	*builtin_pwd(char *s);
+void	*ft_puterror(int flag);
 
 
 #endif

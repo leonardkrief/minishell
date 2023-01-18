@@ -4,39 +4,11 @@
 # include "../liblkriefft/liblkriefft.h"
 # include "minitrees_structs.h"
 
-// cd.c
-char	*get_homepath(char **av, char **ev);
-char	*ft_getpath(char **av, char **ev);
-int	change_directory(char *new_pwd, char ***addr_ev);
-int	ft_cd(char **av, char ***addr_ev);
-
-// env_utils.c
-int	ft_tablen(char **tab);
-char	**ft_copy_tab(char **tab);
-char	**regenerate_ev(int len, int index, char **ev);
-int	ft_ev_getvarindex(char *var, char **ev);
-char	*ft_ev_getvar(char *var, char **ev);
-char	*ft_ev_setvar(char *var_name, char *str, char ***addr_ev);
-
-// export.c
-void	ft_swap_ev(char **tab, int i, int j);
-char	**ft_sorted_ev(char **ev);
-int	ft_display_ordered_ev(char **ev);
-int	export_check_valid_name(char *str);
-int	ft_export_var(char *str, char ***addr_ev);
-int	ft_export(char **av, char ***addr_ev);
-
-// unset.c
-int	ft_unset(char **tab, char ***addr_ev);
-
 // lst_utils.c
 t_list *ft_lstnew_rpn(void *content, int precedence);
 void	ft_lstappendcopy(t_list **lst, t_list *copy);
 char	*ft_match_list(char *str, t_list *lst);
 int	is_a_closed_parenthesis(char *str);
-
-//error.c
-void	*ft_puterror(int flag);
 
 // make_tree.c
 t_btree	*get_tree(char *str, char **env, t_data *data);
@@ -54,7 +26,6 @@ t_queue	*new_queue(void *data, int id);
 void	add_queue(t_queue **queue, t_queue *add);
 t_btree	*pop(t_queue **trees);
 void	print_queue(t_queue *q);
-void	free_queue(t_queue *q);
 
 // rpn_algo.c
 int	rpn_isspecial(t_rpn *rpn, int i);
@@ -85,5 +56,31 @@ void	free_tree(t_btree *t);
 int	exec_command(t_btree *tree, int infile, int outfile);
 int	exec_tree(t_btree *tree, int infile, int outfile);
 // int	exec_tree(t_btree *tree, int infile, int outfile, char **ev);
+
+// cd.c
+char	*get_homepath(char **av, char **ev);
+char	*ft_getpath(char **av, char **ev);
+int	change_directory(char *new_pwd, char ***addr_ev);
+int	ft_cd(char **av, char ***addr_ev);
+
+// env_utils.c
+int		ft_tablen(char **tab);
+char	**ft_copy_tab(char **tab);
+char	**regenerate_ev(int len, int index, char **ev);
+int		ft_ev_getvarindex(char *var, char **ev);
+char	*ft_ev_getvar(char *var, char **ev);
+char	*ft_ev_setvar(char *var_name, char *str, char ***addr_ev);
+
+// export.c
+void	ft_swap_ev(char **tab, int i, int j);
+char	**ft_sorted_ev(char **ev);
+int	ft_display_ordered_ev(char **ev);
+int	export_check_valid_name(char *str);
+int	ft_export_var(char *str, char ***addr_ev);
+int	ft_export(char **av, char ***addr_ev);
+
+// unset.c
+int	ft_unset(char **tab, char ***addr_ev);
+
 
 #endif

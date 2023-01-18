@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rpn_basics.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 03:53:52 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/14 23:00:07 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/14 18:00:50 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	init_rpn(t_rpn *rpn, char *to_parse)
 	ft_memset(rpn, 0, sizeof(*rpn));
 	ft_lstadd_front(&rpn->parenthesis, ft_lstnew_rpn(ft_strndup(")", -1), 0));
 	ft_lstadd_front(&rpn->parenthesis, ft_lstnew_rpn(ft_strndup("(", -1), 0));
-	// ft_lstadd_front(&rpn->parenthesis, ft_lstnew_rpn(ft_strndup("{", -1), 0));
-	// ft_lstadd_front(&rpn->parenthesis, ft_lstnew_rpn(ft_strndup("}", -1), 0));
+	ft_lstadd_front(&rpn->parenthesis, ft_lstnew_rpn(ft_strndup("{", -1), 0));
+	ft_lstadd_front(&rpn->parenthesis, ft_lstnew_rpn(ft_strndup("}", -1), 0));
 	// ft_lstadd_front(&rpn->redirect, ft_lstnew_rpn(ft_strndup(">", -1), 1));
 	// ft_lstadd_front(&rpn->redirect, ft_lstnew_rpn(ft_strndup("<", -1), 1));
 	// ft_lstadd_front(&rpn->redirect, ft_lstnew_rpn(ft_strndup(">>", -1), 1));
@@ -36,7 +36,6 @@ void	init_rpn(t_rpn *rpn, char *to_parse)
 void	free_rpn(t_rpn *rpn)
 {
 	//out, ops, parenthesis, operators, specials
-	free(rpn->blanks);
 	ft_lstclear(&rpn->out, &free);
 	ft_lstclear(&rpn->ops, &free);
 	ft_lstclear(&rpn->parenthesis, &free);

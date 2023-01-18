@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 13:37:24 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/17 00:33:13 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/17 02:01:26 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	builtin_echo(char *s, char **env)
 	return (1);
 }
 
-static int	builtin_pwd(char *s)
+char	*builtin_pwd(char *s)
 {
 	char	*str;
 	char	*temp;
@@ -108,13 +108,13 @@ static int	builtin_pwd(char *s)
 			free(str);
 			str = ft_calloc(i + 1, 1);
 			if (!str)
-				return (1);
+				return (NULL);
 		}
 		i++;
 	}
-	printf("%s\n", str);
-	free(str);
-	return (1);
+	if (s)
+		printf("%s\n", str);
+	return (str);
 }
 
 static int	builtin_cd(char *str, char ***addr_ev)

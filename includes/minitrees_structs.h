@@ -30,8 +30,11 @@ typedef struct s_data
 	pid_t			pid[1024];
 	char			**env;
 	char			**path;
+	char			**split;
 	int				fd[2];
 	int				status;
+
+	char			*prompt;
 }					t_data;
 
 typedef struct s_queue

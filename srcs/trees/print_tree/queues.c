@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:54:00 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/14 18:39:17 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/06 04:56:05 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,4 @@ void	print_queue(t_queue *q)
 		q = q->next;
 	}
 	printf("\n");
-}
-
-void	free_queue(t_queue *q)
-{
-	t_queue *tmp;
-
-	while(q)
-	{
-		tmp = q->next;
-		free(q);
-		q = tmp;
-	}
 }

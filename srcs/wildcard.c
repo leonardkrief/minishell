@@ -6,7 +6,7 @@
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:59:25 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/14 11:41:01 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/01/16 20:20:14 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ char	*ft_wildcard(char *wildcards)
 	struct dirent	*entry;
 
 	temp = ft_calloc(1, 1);
-	dir = opendir("/mnt/nfs/homes/mgamil/Documents/cursus/cestterrible23");
-	entry = readdir(dir);
-	entry = readdir(dir);
+	dir = opendir(builtin_pwd(NULL));
 	entry = readdir(dir);
 	while (entry)
 	{
+		while (!ft_strncmp(entry->d_name, ".", 1))
+			entry = readdir(dir);
 		if (check_wildcards(entry->d_name, wildcards))
 		{
 			temp = ft_strjoin_gnl(temp, entry->d_name);
