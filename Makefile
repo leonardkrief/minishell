@@ -15,6 +15,7 @@ SRCS_NAMES		=	main.c split.c builtin.c expand.c syntax.c wildcard.c cd.c \
 				trees/trees.c \
 				trees/print_tree/print_trees.c \
 				trees/print_tree/queues.c \
+				error_handler/error.c \
 				exec/exec.c exec/utils.c \
 				builtins/cd.c  \
 				builtins/env_utils.c \
@@ -51,13 +52,14 @@ $(NAME): $(DIR_OBJS) $(OBJS)
 	@echo "\033[31;5mminishell\033[0m"
 
 $(OBJS) : $(DIR_OBJS)/%.o : $(DIR_SRCS)/%.c
-	$(CC) -g3 $(CDFLAGS) $(INC) -c $< -o $@ 
+	$(CC) -g3 $(CDFLAGS) $(CFLAGS) $(INC) -c $< -o $@ 
 
 $(DIR_OBJS):
 	mkdir -p $(DIR_OBJS)
 	mkdir -p objs/trees/print_tree
 	mkdir -p objs/rpn
 	mkdir -p objs/builtins
+	mkdir -p objs/error_handler
 	mkdir -p objs/exec
 
 clean:

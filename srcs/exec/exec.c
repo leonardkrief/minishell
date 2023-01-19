@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 01:25:57 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/17 00:44:12 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:49:53 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ void	ft_freerr(t_rr *node)
 void	openfiles(t_rr *node, t_data *data, t_cmd *cmd)
 {
 	int		fd;
-	t_rr	*temp;
 	t_rr	*head;
 
 	head = node;
@@ -189,13 +188,10 @@ char	*checkstring(t_cmd *cmd, char *str)
 {
 	int		i;
 	int		count;
-	char	*flags;
 	char	**tab;
-	t_rr	*tmp;
 
 	tab = ft_split(str, ' ');
 	// ft_printtab(tab);
-	tmp = cmd->redi;
 	count = 0;
 	i = -1;
 	while (tab[++i])
@@ -231,11 +227,12 @@ char	*checkstring(t_cmd *cmd, char *str)
 int	exec_command(t_btree *tree, int infile, int outfile)
 {
 	int		i;
-	char	**tab;
 	int		nbcmd;
 	t_cmd	*cmd;
 	int		status;
 
+	(void) infile;
+	(void) outfile;
 	cmd = ft_calloc(sizeof(t_cmd), 1);
 	// printf("[%s]\n", (char *)tree->node);
 	tree->data->split = ft_split(tree->node, '|');

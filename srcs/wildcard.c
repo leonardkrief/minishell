@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:59:25 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/16 20:20:14 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:47:58 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ int	check_wildcards(char *haystack, char *wildcards)
 
 char	*ft_wildcard(char *wildcards)
 {
-	int				i;
-	char			*str;
 	char			*temp;
 	DIR				*dir;
 	struct dirent	*entry;

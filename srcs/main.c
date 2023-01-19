@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 03:53:43 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/17 02:02:43 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/01/19 11:21:55 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	*ft_puterror(int flag)
-{
-	if (flag & FAILED_MALLOC)
-		ft_putstr_fd("Malloc failed\n", STDERR_FILENO);
-	return (NULL);
-}
 
 void	prompt(t_data *data)
 {
@@ -82,26 +75,26 @@ int	exec(char **env, t_data *data)
 		// ft_infix(tree);
 	}
 	ft_free((void **)& data->prompt);
-	rl_clear_history();
+	//rl_clear_history();
 	ft_free((void **)& str);
 	ft_freetab(data->path);
 	ft_freetab(env);
 	return (0);
 }
 
-int	main(int ac, char **av, char **env)
-{
-	t_data	data;
-	(void)ac;
-	(void)av;
+// int	main(int ac, char **av, char **env)
+// {
+// 	t_data	data;
+// 	(void)ac;
+// 	(void)av;
 	
-	signal(SIGQUIT, SIG_IGN);
-	ft_memset(&data, 0, sizeof(t_data));
-	data.env = env;
-	data.prev_pipes = -1;
-	exec(env, &data);
-	exit(data.status);
-}
+// 	signal(SIGQUIT, SIG_IGN);
+// 	ft_memset(&data, 0, sizeof(t_data));
+// 	data.env = env;
+// 	data.prev_pipes = -1;
+// 	exec(env, &data);
+// 	exit(data.status);
+// }
 
 /*
 

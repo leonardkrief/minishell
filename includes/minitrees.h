@@ -4,9 +4,12 @@
 # include "../liblkriefft/liblkriefft.h"
 # include "minitrees_structs.h"
 
+// error.c
+void	*ft_puterror(int flag, void *param);
+
 // lst_utils.c
 t_list *ft_lstnew_rpn(void *content, int precedence);
-void	ft_lstappendcopy(t_list **lst, t_list *copy);
+void	*ft_lstappendcopy(t_list **lst, t_list *copy);
 char	*ft_match_list(char *str, t_list *lst);
 int	is_a_closed_parenthesis(char *str);
 
@@ -29,13 +32,14 @@ void	print_queue(t_queue *q);
 
 // rpn_algo.c
 int	rpn_isspecial(t_rpn *rpn, int i);
-char	*rpn_handle_parenthesis(t_rpn *rpn);
-char	*rpn_handle_operators(t_rpn *rpn);
-char	*rpn_isspecialtreatment(t_rpn *rpn);
+void	*rpn_handle_parenthesis(t_rpn *rpn);
+void	*rpn_handle_operators(t_rpn *rpn);
+void	*rpn_isspecialtreatment(t_rpn *rpn);
 t_rpn	*generate_rpn(t_rpn *rpn, char *str);
 
 // rpn_basics.c
-void	init_rpn(t_rpn *rpn, char *to_parse);
+char	*ft_strndup(const char *s1, int n);
+void	*init_rpn(t_rpn *rpn, char *to_parse);
 void	free_rpn(t_rpn *rpn);
 char	*invert_quotes(char *s);
 t_rpn	*rpn(t_rpn *rpn, char *str);
@@ -49,7 +53,7 @@ void	rpn_pop_opsdel(t_rpn *rpn);
 t_btree	*new_tree(void *node, t_data *data);
 void	add_left(t_btree **tree, t_btree *left_son);
 void	add_right(t_btree **tree, t_btree *right_son);
-void	free_tree(t_btree *t);
+void	*free_tree(t_btree *t);
 
 // exec.c
 // int	exec_command(t_btree *tree, int infile, int outfile, char **ev);

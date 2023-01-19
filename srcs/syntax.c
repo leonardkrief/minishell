@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 00:14:05 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/04 18:36:48 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:47:35 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	checksyntax(char *s)
 {
-	char	**tab;
 	int		len;
 	char	*temp;
 	int		i;
@@ -80,6 +79,7 @@ int	checkagain(char *temp, int len)
 	int	i;
 	int	j;
 
+	(void) len;
 	i = 2;
 	while (METACHAR[++i])
 	{

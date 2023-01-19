@@ -11,9 +11,13 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define FAILED_MALLOC 0b00000000000000000000001
+# define FAILED_MALLOC			0b00000000000000000000001
 
-# define NULL_ERROR 0b10000000000000000000000
+# define ERROR_EXPRESSION		0b00000000000000000000010
+# define ERROR_RPN				0b00000000000000000000100
+# define ERROR_RPN_PARSING		0b00000000000000000001000
+# define ERROR_NULL				0b10000000000000000000000
+
 typedef struct s_data t_data;
 
 typedef struct s_btree
@@ -58,22 +62,16 @@ typedef struct s_cmd
 	t_rr		*redi;
 }					t_cmd;
 
-// typedef struct s_cmd{
-
-// }
-
-// to free : out, ops, parenthesis, operators, specials
 typedef struct s_rpn
 {
 	t_list			*out;
 	t_list			*ops;
 	t_list			*parenthesis;
 	t_list			*operators;
-	t_list			*redirect;
 	t_list			*specials;
 	char			*blanks;
 	char			*s;
-	t_list			*check;
+	t_list			*prev;
 	t_list			*current;
 }					t_rpn;
 

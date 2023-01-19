@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 20:52:44 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/06 19:21:02 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/01/19 14:49:49 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "liblkriefft.h"
 
-char	*ft_strtrim(const char *s1, const char *set)
+char	*ft_strtrim_lkrief(const char *s1, const char *set)
 {
 	size_t	i;
 	size_t	len;

@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:54:00 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/18 02:17:24 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/19 09:57:21 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,10 @@ char	*ft_spacestr(char *str)
 		return (NULL);
 	newstr = malloc(sizeof (*newstr) * (ft_spacestrlen(str) + 1));
 	if (newstr == NULL) 
-		return (ft_puterror(FAILED_MALLOC), NULL);
+		return (ft_puterror(FAILED_MALLOC, NULL), NULL);
 	i = 0;
 	while (*str)
 		ft_spacestr_treatment(&str, newstr, &i);
+	str[i] = '\0';
 	return (newstr);
 }

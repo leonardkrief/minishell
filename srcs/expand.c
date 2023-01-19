@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 01:50:36 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/14 09:19:34 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:46:09 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_checkdollar(char *s, int *total, char *string)
 	int		i;
 	char	*str;
 	char	*new;
-	int		j;
 
 	i = 1;
 	while (ft_isdigit(s[i]) || ft_isalpha(s[i]) || s[i] == '_')
@@ -44,6 +43,7 @@ int	ft_expandsize(char *s, char **env)
 	int		i;
 	int		total;
 
+	(void) env;
 	total = 0;
 	i = 0;
 	while (s[i])
@@ -97,7 +97,6 @@ char	*ft_expand(char *s, char **env)
 {
 	int		i;
 	int		len;
-	char	*new;
 	int		total;
 	char	*str;
 

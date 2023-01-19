@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 13:37:24 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/17 02:01:26 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:45:08 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,28 @@ static int	builtin_env(char *str, char **env)
 {
 	int	i;
 
+	(void) str;
 	i = -1;
 	while (env[++i])
 		ft_printf("%s\n", env[i]);
 	return (1);
 }
 
-static char	*builtin_echo_expand(char *str, char **env)
-{
-	int		i;
-	char	*s;
-	int		fd;
+// static char	*builtin_echo_expand(char *str, char **env)
+// {
+// 	int		i;
 
-	if (str[0] != '$')
-		return (str);
-	i = -1;
-	while (env[++i])
-	{
-		if (!ft_strncmp(str + 1, env[i], ft_strlen(str) - 1)) // $ARG, ARG, 4
-			return (env[i] + ft_strlen(str));
-	}
-	ft_printf("pas trouve\n");
-	return (str);
-}
+// 	if (str[0] != '$')
+// 		return (str);
+// 	i = -1;
+// 	while (env[++i])
+// 	{
+// 		if (!ft_strncmp(str + 1, env[i], ft_strlen(str) - 1)) // $ARG, ARG, 4
+// 			return (env[i] + ft_strlen(str));
+// 	}
+// 	ft_printf("pas trouve\n");
+// 	return (str);
+// }
 
 static int	builtin_echo_opt(char **tab, int *opt)
 {
@@ -73,6 +72,7 @@ static int	builtin_echo(char *s, char **env)
 	int		i;
 	int		opt;
 
+	(void) env;
 	i = 0;
 	opt = 0;
 	tab = ft_splitex(s); // check malloc
@@ -93,8 +93,6 @@ static int	builtin_echo(char *s, char **env)
 char	*builtin_pwd(char *s)
 {
 	char	*str;
-	char	*temp;
-	int		ret;
 	int		i;
 
 	i = 1;
@@ -127,7 +125,7 @@ static int	builtin_cd(char *str, char ***addr_ev)
 	{
 		tab = ft_split(str + 3, ' ');
 		if (!tab)
-			return (ft_puterror(FAILED_MALLOC), -1);
+			return (ft_puterror(FAILED_MALLOC, NULL), -1);
 		success = ft_cd(tab, addr_ev);
 		ft_free_tab(tab, -1);
 	}
@@ -144,7 +142,7 @@ static int	builtin_export(char *str, char ***addr_ev)
 	{
 		tab = ft_split(str + 7, ' ');
 		if (!tab)
-			return (ft_puterror(FAILED_MALLOC), -1);
+			return (ft_puterror(FAILED_MALLOC, NULL), -1);
 		success = ft_export(tab, addr_ev);
 		ft_free_tab(tab, -1);
 	}
@@ -161,7 +159,7 @@ static int	builtin_unset(char *str, char ***addr_ev)
 	{
 		tab = ft_split(str + 6, ' ');
 		if (!tab)
-			return (ft_puterror(FAILED_MALLOC), -1);
+			return (ft_puterror(FAILED_MALLOC, NULL), -1);
 		success = ft_unset(tab, addr_ev);
 		ft_free_tab(tab, -1);
 	}

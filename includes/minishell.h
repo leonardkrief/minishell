@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 03:53:22 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/17 02:00:18 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/01/19 10:00:32 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,5 @@ t_rr	*ft_lstnewrr(char *content, int type);
 void	ft_printlist(t_rr *temp);
 char	*ft_wildcard(char *wildcards);
 char	*builtin_pwd(char *s);
-void	*ft_puterror(int flag);
-
 
 #endif
