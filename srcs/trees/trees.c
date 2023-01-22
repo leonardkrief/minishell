@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:54:00 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/19 10:41:08 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/22 01:34:47 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,20 @@ void	add_right(t_btree **tree, t_btree *right_son)
 	if (t == NULL)
 		*tree = right_son;
 	else
-		t->l = right_son;
+		t->r = right_son;
 }
 
 void	*free_tree(t_btree *t)
 {
-	if (t->r)
-		free_tree(t->r);
-	if (t->l)
-		free_tree(t->l);
-	if (t->node)
-		free(t->node);
 	if (t)
+	{
+		if (t->r)
+			free_tree(t->r);
+		if (t->l)
+			free_tree(t->l);
+		if (t->node)
+			free(t->node);
 		free(t);
+	}
 	return (NULL);
 }

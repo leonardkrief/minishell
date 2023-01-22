@@ -8,9 +8,13 @@ DIR_OBJS		=	objs
 
 SRCS_NAMES		=	main.c split.c builtin.c expand.c syntax.c wildcard.c cd.c \
 				rpn/rpn_algo.c \
+				rpn/rpn_algo_bis.c \
 				rpn/rpn_basics.c \
 				rpn/rpn_pop_utils.c \
 				rpn/rpn_utils.c \
+				parsing/is_something.c \
+				parsing/parsing_utils.c \
+				parsing/parsing.c \
 				trees/make_tree.c \
 				trees/trees.c \
 				trees/print_tree/print_trees.c \
@@ -61,6 +65,7 @@ $(DIR_OBJS):
 	mkdir -p objs/builtins
 	mkdir -p objs/error_handler
 	mkdir -p objs/exec
+	mkdir -p objs/parsing
 
 clean:
 	make clean -C libft

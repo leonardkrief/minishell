@@ -18,7 +18,19 @@
 # define ERROR_RPN_PARSING		0b00000000000000000001000
 # define ERROR_NULL				0b10000000000000000000000
 
+# define OPENED_PRTHS '('
+# define CLOSED_PRTHS ')'
+
+
 typedef struct s_data t_data;
+
+typedef	struct s_parser{
+	char	*str;
+	char	*cpy;
+	int		s;
+	int		c;
+	int		count;
+} t_parser;
 
 typedef struct s_btree
 {

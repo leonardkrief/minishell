@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 05:51:56 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/19 17:22:09 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/22 03:54:57 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,3 @@ void	*ft_puterror(int flag, void *param)
 		ft_putstr_fd("Expression error\n", STDERR_FILENO);
 	return (NULL);
 }
-
-// int main(int ac, char **av)
-// {
-// 	if (ac > 2)
-// 		ft_puterror(atoi(av[1]), (char *)av[2]);
-// 	return (0);
-// }

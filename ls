@@ -1,0 +1,15 @@
+a.out
+history.txt
+ignore.txt
+in
+in1
+in2
+includes
+libft
+liblkriefft
+ls
+Makefile
+minishell
+objs
+prototypes.txt
+srcs

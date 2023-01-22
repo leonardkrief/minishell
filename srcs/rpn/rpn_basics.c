@@ -6,32 +6,11 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 03:53:52 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/19 16:40:31 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/22 03:37:50 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*ft_strndup(const char *s1, int n)
-{
-	char	*cp;
-	int		len;
-
-	len = 0;
-	while (s1[len] && (len < n || n < 0))
-		len++;
-	cp = malloc(sizeof(*cp) * (len + 1));
-	if (!cp)
-		return (ft_puterror(FAILED_MALLOC, (char *)"ft_strndup"));
-	len = 0;
-	while (s1[len] && (len < n || n < 0))
-	{
-		cp[len] = s1[len];
-		len++;
-	}
-	cp[len] = '\0';
-	return (cp);
-}
 
 void	*init_rpn_aux(t_rpn *rpn, char *to_parse)
 {
@@ -70,16 +49,14 @@ void	*init_rpn(t_rpn *rpn, char *to_parse)
 	return (init_rpn_aux(rpn, to_parse));
 }
 
-
 void	free_rpn(t_rpn *rpn)
 {
-	// out, ops, parenthesis, operators, specials OK
-	// quid de check et current ?
 	ft_lstclear(&rpn->out, &free);
 	ft_lstclear(&rpn->ops, &free);
 	ft_lstclear(&rpn->parenthesis, &free);
 	ft_lstclear(&rpn->operators, &free);
 	ft_lstclear(&rpn->specials, &free);
+	free(rpn->blanks);
 }
 
 char	*invert_quotes(char *s)
@@ -101,9 +78,6 @@ char	*invert_quotes(char *s)
 			i++;
 	}
 	return (s);
-	// a voir pour inverser seulement les espaces + \t + \v
-	// faudra le faire a part car mon parsing peut se prendre les
-	// pieds dans le tapis sinon
 }
 
 t_rpn	*rpn(t_rpn *rpn, char *str)
@@ -114,16 +88,22 @@ t_rpn	*rpn(t_rpn *rpn, char *str)
 	{
 		invert_quotes(str);
 		generate_rpn(rpn, str);
+		if (rpn->current)
+			return (ft_puterror(ERROR_RPN, (char *)rpn->current->content),
+				free_rpn(rpn), NULL);
 		return (rpn);
 	}
 }
 
-int	main(int ac, char **av)
-{
-	t_rpn	*rpn_var;
+// int	main(int ac, char **av)
+// {
+// 	t_rpn	*rpn_var;
 
-	rpn_var = malloc(sizeof(*rpn_var));
-	if (ac >= 2)
-		rpn(rpn_var, av[1]);
-	free(rpn_var);
-}
+// 	rpn_var = malloc(sizeof(*rpn_var));
+// 	if (ac >= 2)
+// 	{
+// 		if (rpn(rpn_var, av[1]))
+// 			free_rpn(rpn_var);
+// 	}
+// 	free(rpn_var);
+// }

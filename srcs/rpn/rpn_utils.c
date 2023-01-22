@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 03:53:52 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/19 16:30:28 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/22 03:38:01 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 t_list	*ft_lstnew_rpn(void *content, int precedence)
 {
 	t_list	*new;
-	// if (content = NULL)
-		//return (error_handler(t_rpn *rpn, NULL_FAILURE));
+
 	if (!content)
 		return (NULL);
 	new = ft_lstnew(content);
@@ -66,4 +65,25 @@ int	is_a_closed_parenthesis(char *str)
 	if (!ft_strncmp(str, ")", 2))
 		return (1);
 	return (0);
+}
+
+char	*ft_strndup(const char *s1, int n)
+{
+	char	*cp;
+	int		len;
+
+	len = 0;
+	while (s1[len] && (len < n || n < 0))
+		len++;
+	cp = malloc(sizeof(*cp) * (len + 1));
+	if (!cp)
+		return (ft_puterror(FAILED_MALLOC, (char *)"ft_strndup"));
+	len = 0;
+	while (s1[len] && (len < n || n < 0))
+	{
+		cp[len] = s1[len];
+		len++;
+	}
+	cp[len] = '\0';
+	return (cp);
 }

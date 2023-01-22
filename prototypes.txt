@@ -1,0 +1,19 @@
+// is_something.c
+int	is_redirection(char *str, int n);
+int	is_special_token(char *str, int n);
+int	is_parenthesis(char *str);
+int	is_special(char *str, int n);
+int	is_blank(char *str);
+
+// parsing.c
+void	*is_special_parsing(t_parser *p);
+void	*is_not_special_parsing(t_parser *p);
+void	*next_is_null_parsing(t_parser *p);
+void	*parse_check(t_parser *p);
+char	*parsing(char *str);
+
+// parsing_utils.c
+int	get_token(char *str);
+void	*init_parser(t_parser *parser, char *str);
+void	*parse_error(char *str);
+
