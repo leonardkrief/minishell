@@ -92,6 +92,37 @@ int	get_token(char *str);
 void	*init_parser(t_parser *parser, char *str);
 void	*parse_error(char *str);
 
+/*********************************/
+/*************BUILTINS************/
+/*********************************/
+
+// cd.c
+char	*get_homepath(char **av, char **ev);
+char	*ft_getpath(char **av, char **ev);
+int	change_directory(char *new_pwd, char ***addr_ev);
+int	ft_cd(char **av, char ***addr_ev);
+
+// env_utils_bis.c
+int	ft_tablen(char **tab);
+void	ft_swap_ev(char **tab, int i, int j);
+
+// env_utils.c
+char	**ft_copy_tab(char **tab);
+char	**regenerate_ev(int len, int index, char **ev);
+int	ft_ev_getvarindex(char *var, char **ev);
+char	*ft_ev_getvar(char *var, char **ev);
+char	*ft_ev_setvar(char *var_name, char *str, char ***addr_ev);
+
+// export.c
+char	**ft_sorted_ev(char **ev);
+int	ft_display_ordered_ev(char **ev);
+int	export_check_valid_name(char *str);
+int	ft_export_var(char *str, char ***addr_ev);
+int	ft_export(char **av, char ***addr_ev);
+
+// unset.c
+int	ft_unset(char **tab, char ***addr_ev);
+
 /*******************************/
 /*************ERROR*************/
 /*******************************/
@@ -108,31 +139,5 @@ void	*ft_puterror(int flag, void *param);
 int	exec_command(t_btree *tree, int infile, int outfile);
 int	exec_tree(t_btree *tree, int infile, int outfile);
 // int	exec_tree(t_btree *tree, int infile, int outfile, char **ev);
-
-// cd.c
-char	*get_homepath(char **av, char **ev);
-char	*ft_getpath(char **av, char **ev);
-int	change_directory(char *new_pwd, char ***addr_ev);
-int	ft_cd(char **av, char ***addr_ev);
-
-// env_utils.c
-int		ft_tablen(char **tab);
-char	**ft_copy_tab(char **tab);
-char	**regenerate_ev(int len, int index, char **ev);
-int		ft_ev_getvarindex(char *var, char **ev);
-char	*ft_ev_getvar(char *var, char **ev);
-char	*ft_ev_setvar(char *var_name, char *str, char ***addr_ev);
-
-// export.c
-void	ft_swap_ev(char **tab, int i, int j);
-char	**ft_sorted_ev(char **ev);
-int	ft_display_ordered_ev(char **ev);
-int	export_check_valid_name(char *str);
-int	ft_export_var(char *str, char ***addr_ev);
-int	ft_export(char **av, char ***addr_ev);
-
-// unset.c
-int	ft_unset(char **tab, char ***addr_ev);
-
 
 #endif

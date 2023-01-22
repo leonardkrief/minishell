@@ -6,20 +6,11 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:47:54 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/19 16:52:23 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/22 06:23:49 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_swap_ev(char **tab, int i, int j)
-{
-	char	*tmp;
-
-	tmp = tab[i];
-	tab[i] = tab[j];
-	tab[j] = tmp;
-}
 
 char	**ft_sorted_ev(char **ev)
 {

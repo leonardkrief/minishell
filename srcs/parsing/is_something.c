@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 03:55:32 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/22 06:09:04 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/22 06:21:10 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	is_redirection(char *str, int n)
 {
 	if (((*str == '<' && *(str + 1) == '<')
-		|| (*str == '>' && *(str + 1) == '>')) && (n >= 2 || n < 0))
+			|| (*str == '>' && *(str + 1) == '>')) && (n >= 2 || n < 0))
 		return (2);
 	else if ((*str == '<') || (*str == '>'))
 		return (1);
@@ -25,9 +25,10 @@ int	is_redirection(char *str, int n)
 
 int	is_special_token(char *str, int n)
 {
-	if (((*str == '|' && *(str + 1) == '|') || (*str == '&' && *(str + 1) == '&')
-		|| (*str == '<' && *(str + 1) == '<')
-		|| (*str == '>' && *(str + 1) == '>')) && (n >= 2 || n < 0))
+	if (((*str == '|' && *(str + 1) == '|')
+			|| (*str == '&' && *(str + 1) == '&')
+			|| (*str == '<' && *(str + 1) == '<')
+			|| (*str == '>' && *(str + 1) == '>')) && (n >= 2 || n < 0))
 		return (2);
 	else if ((*str == '|') || (*str == '&') || (*str == '<') || (*str == '>'))
 		return (1);

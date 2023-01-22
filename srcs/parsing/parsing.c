@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 03:55:32 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/22 06:10:53 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/22 06:21:48 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*is_special_parsing(t_parser *p)
 	else if (is_redirection(p->str, p->s) && is_special(p->cpy, p->c))
 		return (*(p->cpy + p->c) = '\0', parse_error(p->cpy));
 	else if (*(p->cpy) != OPENED_PRTHS && !is_redirection(p->cpy, p->c)
-			&& is_special(p->cpy, p->c))
+		&& is_special(p->cpy, p->c))
 		return (*(p->cpy + p->c) = '\0', parse_error(p->cpy));
 	return (p);
 }
@@ -59,7 +59,7 @@ void	*next_is_null_parsing(t_parser *p)
 	else if (is_special(p->str, p->s))
 		return (*(p->str + p->s) = '\0', parse_error(p->str));
 	if (p->count != 0)
-			return (*(p->str + p->s) = '\0', parse_error(p->str));
+		return (*(p->str + p->s) = '\0', parse_error(p->str));
 	return (p);
 }
 

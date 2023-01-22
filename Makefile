@@ -23,6 +23,7 @@ SRCS_NAMES		=	main.c split.c builtin.c expand.c syntax.c wildcard.c cd.c \
 				exec/exec.c exec/utils.c \
 				builtins/cd.c  \
 				builtins/env_utils.c \
+				builtins/env_utils_bis.c \
 				builtins/export.c \
 				builtins/unset.c 
 
