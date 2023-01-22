@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 03:55:32 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/22 06:21:48 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/22 07:04:24 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,12 @@ void	*is_not_special_parsing(t_parser *p)
 {
 	if (*(p->cpy) == OPENED_PRTHS)
 	{
+		p->cpy = p->cpy + p->c;
 		while (is_blank(p->cpy))
 			p->cpy++;
 		p->c = get_token(p->cpy);
+		if (!p->c)
+			return (*(p->cpy + p->c) = '\0', parse_error("newline"));
 		return (*(p->cpy + p->c) = '\0', parse_error(p->cpy));
 	}
 	return (p);
@@ -56,6 +59,8 @@ void	*next_is_null_parsing(t_parser *p)
 		if (p->count != 0)
 			return (*(p->str + p->s) = '\0', parse_error(p->str));
 	}
+	else if (is_redirection(p->str, p->s))
+		return (*(p->str + p->s) = '\0', parse_error("newline"));
 	else if (is_special(p->str, p->s))
 		return (*(p->str + p->s) = '\0', parse_error(p->str));
 	if (p->count != 0)
