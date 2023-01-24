@@ -136,8 +136,10 @@ void	*ft_puterror(int flag, void *param);
 
 // exec.c
 // int	exec_command(t_btree *tree, int infile, int outfile, char **ev);
-int	exec_command(t_btree *tree, int infile, int outfile);
-int	exec_tree(t_btree *tree, int infile, int outfile);
+// int	exec_command(t_btree *tree);
+// int	exec_tree(t_btree *tree);
+int	exec_command(t_btree *tree, t_btree *head);
+int	exec_tree(t_btree *tree, t_btree *head);
 // int	exec_tree(t_btree *tree, int infile, int outfile, char **ev);
 
 #endif

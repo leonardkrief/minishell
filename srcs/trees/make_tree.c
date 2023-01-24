@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:54:00 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/22 06:19:17 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/24 06:06:41 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ char	**ft_getenv(char **envp, t_data *data)
 			data->path = ft_split(envp[i] + 5, ':');
 			if (!data->path)
 				return (ft_puterror(FAILED_MALLOC, (char *)"ft_getenv"));
-			break ;
+			return (NULL);
 		}
 	}
-	return (data->path);
+	data->path = 0;
+	return (NULL);
 }
 
 t_list	*ft_isoperator_treatment(t_data *data, t_list *out, t_list **addr_list)
@@ -113,17 +114,17 @@ t_btree	*get_tree(char *str, char **env, t_data *data)
 	return (free_rpn(&rpn_var), tree);
 }
 
-int main(int ac, char **av, char **ev)
-{
-	t_btree	*tree;
+// int main(int ac, char **av, char **ev)
+// {
+// 	t_btree	*tree;
 
-	if (ac > 1)
-	{
-		if (!parsing(av[1]))
-			return (-1);
-		tree = get_tree(av[1], ev, NULL);
+// 	if (ac > 1)
+// 	{
+// 		if (!parsing(av[1]))
+// 			return (-1);
+// 		tree = get_tree(av[1], ev, NULL);
 
-		free_tree(tree);
-	}
-	return (0);
-}
+// 		free_tree(tree);
+// 	}
+// 	return (0);
+// }

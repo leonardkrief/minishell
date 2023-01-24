@@ -6,197 +6,157 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 03:53:43 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/19 11:21:55 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/24 19:13:29 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	prompt(t_data *data)
+char	*prompt(t_data *data)
 {
-	char		*str;
-	char		**tab;
-	int			count;
+	char	*str;
+	char	prompt[PATH_MAX];
+	char	**tab;
+	int		count;
+
 	str = builtin_pwd(NULL);
 	tab = ft_split(str, '/');
 	count = ft_countdelim(str, '/');
 	if (data->status)
-		data->prompt = ft_strdup(RED);
+		ft_strcpy(prompt, RED);
 	else
-		data->prompt = ft_strdup(GREEN);
+		ft_strcpy(prompt, GREEN);
 	if (count)
-		data->prompt = ft_realloc(data->prompt, tab[count - 1]);
+		ft_strcat(prompt, tab[count - 1]);
 	else
-		data->prompt = ft_realloc(data->prompt, str);
-	data->prompt = ft_realloc(data->prompt, "\001\033[0m\002:");
-	ft_free((void **)& 	str);
-	ft_freetab(tab);
+		ft_strcat(prompt, str);
+	ft_strcat(prompt, "\001\033[0m\002:");
+	free_all(1, 1, &str, tab);
+	return (readline(prompt));
 }
 
-int	exec(char **env, t_data *data)
+char	*ft_quote(char *str)
 {
-	char	*str;
-	int		fd;
-	t_btree	*tree;
+	int		i;
+	int		r;
+	int		quote;
+	char	*new;
+	char	*ret;
 
-	env = ft_copy_tab(env);
-	while (1)
+	i = 0;
+	r = 0;
+	new = malloc(ft_strlen(str) + 1);
+	while (str[i])
 	{
-		prompt(data);
-		str = readline(data->prompt);
-		ft_free((void **)& data->prompt);
-		fd = open("history.txt", O_RDWR | O_CREAT | O_APPEND, 0644);
-		ft_putendl_fd(str, fd);
-		add_history(str);
-		close(fd);
-		if (!str)
-			break ;
-		if (!ft_strcmp(str, "echo $?"))
+		while (str[i] && str[i] == SQUOTE || str[i] == DQUOTE)
 		{
-			printf("%i\n", data->status);
-			continue ;
+			quote = str[i++];
+			while (str[i] && str[i] != quote)
+			{
+				if (ft_strchr("\t\v\n >|<", str[i]))
+					str[i] = -str[i];
+				new[r++] = str[i++];
+			}
+			i++;
 		}
-		if (checkquotes(str) || checksyntax(str))
-			continue ;
-		str = ft_expand(str, env);
-		if (ft_builtin(str, env, &env))
-			continue ;
-		if (!str || !*str || !ft_strcmp(str, "exit"))
-			break ;
-		tree = get_tree(str, env, data);
-		ft_free((void **)&str);
-		if (tree)
-		{
-			print_tree(tree, 2);
-			exec_tree(tree, STDIN_FILENO, STDOUT_FILENO);
-			free_tree(tree);
-		}
-		// ft_printf("FIN EXECUTION PREMIeRE CMD\n");
-		// ft_infix(tree);
+		if (!str[i])
+			break;
+		new[r++] = str[i++];
 	}
-	ft_free((void **)& data->prompt);
-	//rl_clear_history();
-	ft_free((void **)& str);
-	ft_freetab(data->path);
-	ft_freetab(env);
+	new[r] = 0;
+	ret = ft_strdup(new);
+	free_all(2, 0, & new, & str);
+	return (ret);
+}
+
+int	syntax(t_data *data, char *str)
+{
+	if (!*str)
+		return (1);
+	if (checksyntax(str) || checkquotes(str) || !parsing(str))
+	{
+		data->status = 2;
+		return (1);
+	}
+	if (!ft_strcmp(str, "exit"))
+	{
+		data->status = 0;
+		return (2);
+	}
 	return (0);
 }
 
-// int	main(int ac, char **av, char **env)
-// {
-// 	t_data	data;
-// 	(void)ac;
-// 	(void)av;
-	
-// 	signal(SIGQUIT, SIG_IGN);
-// 	ft_memset(&data, 0, sizeof(t_data));
-// 	data.env = env;
-// 	data.prev_pipes = -1;
-// 	exec(env, &data);
-// 	exit(data.status);
-// }
+int	exec(t_data *data)
+{
+	char	*str;
+	t_btree	*tree;
+	t_here	here;
 
-/*
+	while (1)
+	{
+		data->str = prompt(data);
+		if (!data->str)
+			break ;
+		if (!*data->str)
+			continue;
+		add_history(data->str);
+		if (syntax(data, data->str) == 1)
+			continue ;
+		if (syntax(data, data->str) == 2)
+			break ;
+		// if (!ft_strcmp(data->str, "echo $?"))
+		// {
+		// 	printf("%i\n", data->status);
+		// 	continue ;
+		// }
+		data->str = ft_quote(data->str);
+		data -> here = & here;
+		here_doc(data, data->str);
+		tree = get_tree(data->str, data->env, data);
+		ft_free((void **)& data->str);
+		if (tree)
+		{
+			t_btree *temp = tree;
+			// print_tree(tree, 2);
+			exec_tree(tree, temp);
+			free_tree(tree);
+		}
+		for (int index = 0; index < data->nb_here; index++)
+			close(data->here[index].pipe[0]);
+		freestruct(data);
+		free_all(0, 1, data->path);
+		ft_getenv(data->env, data);
+		// ft_printf("MAIN data->here : %p\n", data->here);
+	}
+	// freestruct(data);
+	free_all(1, 2, &data->str, data->path, data->env);
+	ft_printf("exit\n");
+	clear_history();
+	return (0);
+}
 
-tab[0] = <			// REDIR
-tab[1] = Makefile	// FILE
-tab[2] = cat		// CMD
-tab[3] = |			// PIPE
-tab[4] = grep		// CMD
-tab[5] = " 'lol"	// ARG
-tab[6] = |			// PIPE
-tab[7] = ls			// CMD
-tab[8] = -l			// ARG
-tab[9] = >			// REDIR
-tab[10] = outfile	// FILE
+int	init(t_data *data, char **env)
+{
+	ft_memset(data, 0, sizeof(t_data));
+	data->prev_pipes = -1;
+	data->env = ft_copy_tab(env);
+	ft_getenv(data->env, data);
+	return (0);
+}
 
+int	main(int ac, char **av, char **env)
+{
+	t_data	*data;
 
-	LISTE CHAINEE
-
-exemple 1:
-0				1	2	3				4	5		6
-<	Makefile	cat	|	grep	" 'lol"	|	ls	-l	>>	outfile
-
-		TYPE	NAME	OPTS
-<		1		<		{"Makefile", NULL}
-cat		0		cat		{"cat", NULL}
-|		-1		|		{NULL}
-grep	0		grep	{"grep", " 'lol", NULL}
-|		-1		|		{NULL}
-ls		0		ls		{"ls", {"-l"}, NULL};
->>		4		>>		{"outfile"}
-
-exemple 2:
-0		1
-<< stop > file1
-
-		TYPE	NAME	OPTS
-<<		2		<<		{"stop", NULL}
->>		4		>>		{"file1", NULL}
-
-
-exemple 3:
-0		1				2	3			4			5	6
-ls	-R	>	/dev/stdout	|	<	infile	>	outfile	|	wc	-w
-
-		TYPE	NAME	OPTS
-ls		0		ls		{"ls", "-R", NULL}
->		3		>		{"/dev/stdout", NULL}
-|		-1		|		{NULL}
-<		1		<		{"infile", NULL}
->		3		>		{"outfile", NULL}
-|		-1		|		{NULL}
-wc		0		wc		{"wc", "-w", NULL}
-
-
-*/
-
-/*
- 
-(	(	(a	|	b)	&&	c)	||	d)	|	(e	&&	f)
-						|
-			||					&&
-		&&		d			e		f
-	|		c
-a		b
-
-
-(	(	(a	|	b)	&&	c)	||	d)	|	(	(	(a	|	b)	&&	c)	||	d)
-									|
-			||											||
-		&&		d									&&		d
-	|		c									|		c
-a		b									a		b
-
-
-
-*/
-
-/*
-
-tab[i]
-si		i = 0 et que c pas une redirection === commande
-si i > 0 et que c pas une redirection === argument
-sinon redirection
-
-*/
-
-/*
-
-
-10 animaux
-56 croq
-1 chien = 6 croq
-1 chat =  5 croq
-
-
-56 = 6x + 5y
-
-
-
-
-
-*/
+	(void)ac;
+	(void)av;
+	data = starton();
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &ctrlc);
+	init(data, env);
+	exec(data);
+	exit(data->status);
+}
 
 /*
 MINISHELLL:cat | cat | cat | cat | ls
@@ -207,7 +167,7 @@ nbcmd=5
 4|6|5
 5|6|4
 4|6|5
-append	history.txt  includes  libft.a			liblkriefft.a  minishell  out   out2  out4	   outside  srcs
+append	history.txt  includes  libft.a			liblkriefft.a  minishell  out   out2  out4		outside  srcs
 gab	ignore.txt   libft     liblkriefft  Makefile		objs       out1  out3  outfile  pipex
 
 

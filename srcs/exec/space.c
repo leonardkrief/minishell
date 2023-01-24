@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_spacestr.c                                      :+:      :+:    :+:   */
+/*   space.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/04 16:54:00 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/19 09:57:21 by lkrief           ###   ########.fr       */
+/*   Created: 2023/01/18 20:44:09 by mgamil            #+#    #+#             */
+/*   Updated: 2023/01/19 20:28:14 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,11 @@ void	ft_spacestr_treatment(char **addr_str, char *newstr, int *addr_i)
 	{
 		newstr[i++] = *str;
 		if (!ft_iswhitespace(*str)
-			&& (*(str + 1) == '>' || *(str + 1) == '<'))
+			&& (*(str)) && (*(str + 1) == '>' || *(str + 1) == '<'))
 			newstr[i++] = ' ';
 		str++;
 	}
+	newstr[i] = 0;
 	*addr_i = i;
 	*addr_str = str;
 }
@@ -94,15 +95,17 @@ char	*ft_spacestr(char *str)
 	int		i;
 	int		forward;
 	char	*newstr;
+	char	*cpy;
 
-	if (!str)
+	cpy = str;
+	if (!cpy)
 		return (NULL);
-	newstr = malloc(sizeof (*newstr) * (ft_spacestrlen(str) + 1));
+	newstr = malloc(sizeof (*newstr) * (ft_spacestrlen(cpy) + 1));
 	if (newstr == NULL) 
 		return (ft_puterror(FAILED_MALLOC, NULL), NULL);
 	i = 0;
-	while (*str)
-		ft_spacestr_treatment(&str, newstr, &i);
-	str[i] = '\0';
+	while (*cpy)
+		ft_spacestr_treatment(&cpy, newstr, &i);
+	ft_free((void **) & str);
 	return (newstr);
 }

@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/07 21:04:11 by mohazerr          #+#    #+#             */
-/*   Updated: 2023/01/24 13:03:30 by mgamil           ###   ########.fr       */
+/*   Created: 2023/01/22 19:27:37 by mgamil            #+#    #+#             */
+/*   Updated: 2023/01/22 20:42:40 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
-#include <string.h>
+#include "minishell.h"
 
-char	*ft_strchr(char const *s, int c)
+void	exec_waitpid(t_data *data)
 {
-	if (c == '\0')
+	int	i;
+	int	var;
+	
+	i = -1;
+	while (++i < data->nbcmd)
 	{
-		while (*s)
-			s++;
-		return ((char *)s);
+		waitpid(data->pid[i], &data->status, 0);
+		if (WIFEXITED(data->status))
+			data->status = WEXITSTATUS(data->status);
+		if (data->status == 131 && !var++)
+			ft_printf("Quit (core dumped)\n");
 	}
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	return (0);
+	var = 0;
 }

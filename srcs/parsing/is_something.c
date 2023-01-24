@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 03:55:32 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/22 06:21:10 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/24 15:55:05 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_special_token(char *str, int n)
 
 int	is_parenthesis(char *str)
 {
-	if ((*str == '(') || (*str == ')'))
+	if ((*str == OPENED_PRTHS) || (*str == CLOSED_PRTHS))
 		return (1);
 	else
 		return (0);

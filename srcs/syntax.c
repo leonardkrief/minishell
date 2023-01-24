@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgamil <mgamil@42.student.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 00:14:05 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/19 16:47:35 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/23 08:40:31 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	checksyntax(char *s)
 {
+	char	**tab;
 	int		len;
 	char	*temp;
 	int		i;
@@ -26,14 +27,14 @@ int	checksyntax(char *s)
 	while (METACHAR[++i])
 		if (METACHAR[i] == temp[len - 1])
 		{
-			return (free(temp), free(s), printf("syntax error '%c'!\n",
+			return (free(temp), free(s), printf("bash: syntax error near unexpected token '%c'!\n",
 					METACHAR[i]));
 		}
 	i = 1;
 	while (METACHAR[++i])
 		if (METACHAR[i] == temp[0])
 		{
-			return (free(temp), free(s), printf("syntax error '%c'!\n",
+			return (free(temp), free(s), printf("bash: syntax error near unexpected token '%c'!\n",
 					METACHAR[i]));
 		}
 	if (checkagain(temp, len))
@@ -79,14 +80,13 @@ int	checkagain(char *temp, int len)
 	int	i;
 	int	j;
 
-	(void) len;
 	i = 2;
 	while (METACHAR[++i])
 	{
 		j = -1;
 		while (temp[++j])
 			if (temp[j] == METACHAR[i])
-				return (free(temp), printf("syntax error '%c'\n", METACHAR[i]));
+				return (free(temp), printf("bash: syntax error near unexpected token '%c'\n", METACHAR[i]));
 	}
 	// if (ft_strnstr(temp, "||", len))
 	// 	return (free(temp), printf("syntax error '||' !\n"));

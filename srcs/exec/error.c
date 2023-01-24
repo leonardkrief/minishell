@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/07 21:04:11 by mohazerr          #+#    #+#             */
-/*   Updated: 2023/01/24 13:03:30 by mgamil           ###   ########.fr       */
+/*   Created: 2023/01/20 06:24:49 by mgamil            #+#    #+#             */
+/*   Updated: 2023/01/24 07:18:24 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
-#include <string.h>
+#include "minishell.h"
 
-char	*ft_strchr(char const *s, int c)
+void	error_fd(t_rr *node, t_data *data, t_cmd *cmd, int index)
 {
-	if (c == '\0')
-	{
-		while (*s)
-			s++;
-		return ((char *)s);
-	}
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	return (0);
+	if (errno == 13 && node->type != 4)
+		ft_printf("bash: %s: Permission denied\n", node->content);
+	else if (node->type != 4)
+		ft_printf("bash: %s: No such file or directory\n", node->content);
+	ft_errorcmd(data, cmd, cmd->redi, "");
+	close(data->fd[1]);
+	close(data->fd[0]);
+	exit(1);
 }

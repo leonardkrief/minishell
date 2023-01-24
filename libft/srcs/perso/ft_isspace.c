@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/07 21:04:11 by mohazerr          #+#    #+#             */
-/*   Updated: 2023/01/24 13:03:30 by mgamil           ###   ########.fr       */
+/*   Created: 2023/01/19 04:05:42 by mgamil            #+#    #+#             */
+/*   Updated: 2023/01/19 04:06:43 by mgamil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
-#include <string.h>
 
-char	*ft_strchr(char const *s, int c)
+int	ft_isspace(int c)
 {
-	if (c == '\0')
-	{
-		while (*s)
-			s++;
-		return ((char *)s);
-	}
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
 	return (0);
 }
