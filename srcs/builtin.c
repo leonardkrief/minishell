@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 13:37:24 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/24 12:54:03 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/01/25 19:17:23 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ static int	builtin_echo(char *s, char **env)
 
 char	*builtin_pwd(char *s)
 {
-	char 	buff[PATH_MAX];
+	char	buff[PATH_MAX];
+	char	*pwd;
 
 	if (getcwd(buff, sizeof(buff)) == NULL)
 		printf("error: %s", strerror(errno));
@@ -101,7 +102,10 @@ char	*builtin_pwd(char *s)
 		printf("%s\n", buff);
 		return (NULL);
 	}
-	return (ft_strdup(buff));
+	pwd = ft_strdup(buff);
+	if (!pwd)
+		return (ft_puterror(FAILED_MALLOC, (char *)__func__));
+	return (pwd);
 }
 
 static int	builtin_cd(char *str, char ***addr_ev)

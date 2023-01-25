@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgamil <mgamil@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:59:25 by mgamil            #+#    #+#             */
-/*   Updated: 2023/01/20 10:48:58 by mgamil           ###   ########.fr       */
+/*   Updated: 2023/01/25 19:17:36 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	check_wildcards(char *haystack, char *wildcards)
 			wildcards++;
 		if (*wildcards)
 		{
-			ft_printf("*wildcards=%c\n", *wildcards);
 			w = ft_str_wildcard_len(wildcards);
 			if (w_trigger)
 				haystack = ft_strnstr_wcd(haystack, wildcards, w);
@@ -99,50 +98,24 @@ char	*ft_wildcard(char *wildcards)
 	struct dirent	*entry;
 	char			*pwd;
 
-	temp = 0;
+	temp = NULL;
 	pwd = builtin_pwd(NULL);
 	dir = opendir(pwd);
 	free(pwd);
 	entry = readdir(dir);
 	while (entry)
 	{
-		// ft_printf("wildcards=%s\n", wildcards);
 		while (wildcards[0] != '.' && entry->d_name[0] == '.')
-		{
 			entry = readdir(dir);
-			ft_printf("entry->d_name=%s\n", entry->d_name);
-		}	
-		ft_printf("jmechappe %s\n", entry->d_name);
-		// if (!entry->d_name[0])
-		// 	break ;
 		if (check_wildcards(entry->d_name, wildcards))
 		{
 			temp = ft_realloc(temp, entry->d_name);
 			temp = ft_realloc(temp, " ");
 		}
-		ft_printf("jme suis echappe:%s\n", entry->d_name);
 		entry = readdir(dir);
 	}
 	closedir(dir);
+	if (temp == NULL)
+		temp = ft_strdup(wildcards);
 	return (temp);
 }
-
-// char	*ft_wildcard(char *str)
-// {
-// 	char *new;
-// 	int i;
-
-// 	i = -1;
-// 	while (str[i])
-// 	{
-// 		while (ft_isspace(str[i]))
-// 			i++;
-// 	}
-// 	return (new);
-// }
-
-/*
-ls a*t | *
-ls >a.out | a.out history.txt includes libft.a liblkriefft.a minishell srcs fichier ignore.txt libft liblkriefft Makefile objs
-
-*/

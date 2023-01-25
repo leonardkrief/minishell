@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:47:54 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/24 18:04:57 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/25 19:19:05 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	change_directory(char *new_pwd, char ***addr_ev)
 		free(pwd);
 		pwd = getcwd(NULL, 0);
 		if (!pwd)
-			return(ft_puterror(FAILED_MALLOC, (char *)__func__), 0);
+			return (ft_puterror(FAILED_MALLOC, (char *)__func__), 0);
 		ft_ev_setvar("PWD", pwd, addr_ev);
 		free(pwd);
 		return (0);

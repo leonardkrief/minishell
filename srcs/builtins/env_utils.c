@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 05:02:23 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/24 17:03:55 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/25 19:21:09 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,6 @@
 // rester sur un tableau
 
 #include "minishell.h"
-
-int	ft_tablen(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
 
 char	**ft_copy_tab(char **tab)
 {
@@ -106,7 +96,7 @@ int	ft_ev_getvarindex(char *var, char **ev)
 	{
 		if ((!ft_strcmp(var, ev[i])) || !ft_strncmp(var, ev[i], len)
 			&& !ft_strncmp("=", ev[i] + len, 1))
-			break;
+			break ;
 		i++;
 	}
 	if (ev[i])
@@ -127,8 +117,8 @@ char	*ft_ev_getvar(char *var, char **ev)
 	while (ev[i])
 	{
 		if ((!ft_strcmp(var, ev[i])) || (!ft_strncmp(var, ev[i], len)
-			&& !ft_strncmp("=", ev[i] + len, 1)))
-			break;
+				&& !ft_strncmp("=", ev[i] + len, 1)))
+			break ;
 		i++;
 	}
 	if (ev[i])

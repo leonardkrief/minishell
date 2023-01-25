@@ -6,20 +6,11 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:47:54 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/24 19:03:36 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/25 19:20:27 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_swap_ev(char **tab, int i, int j)
-{
-	char	*tmp;
-
-	tmp = tab[i];
-	tab[i] = tab[j];
-	tab[j] = tmp;
-}
 
 char	**ft_sorted_ev(char **ev)
 {
@@ -112,9 +103,9 @@ int	ft_export_var(char *str, char ***addr_ev)
 
 int	ft_export(char **av, char ***addr_ev)
 {
-	int	i;
-	int	ret;
-	char *str;
+	int		i;
+	int		ret;
+	char	*str;
 
 	if (!*addr_ev)
 		return (-1);

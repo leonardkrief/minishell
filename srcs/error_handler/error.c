@@ -6,7 +6,7 @@
 /*   By: lkrief <lkrief@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 05:51:56 by lkrief            #+#    #+#             */
-/*   Updated: 2023/01/24 18:50:29 by lkrief           ###   ########.fr       */
+/*   Updated: 2023/01/25 19:22:11 by lkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	*ft_puterror(int flag, void *param)
 	}
 	if (flag & ERROR_RPN_PARSING)
 	{
-		ft_putstr_fd("bash: syntax error near unexpected token `", STDERR_FILENO);
+		ft_putstr_fd("bash: syntax error near unexpected token `",
+			STDERR_FILENO);
 		ft_putstr_fd((char *)param, STDERR_FILENO);
 		ft_putstr_fd("'\n", STDERR_FILENO);
 	}
